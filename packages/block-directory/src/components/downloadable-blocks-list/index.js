@@ -7,8 +7,7 @@ import { noop } from 'lodash';
  * WordPress dependencies
  */
 import { getBlockMenuDefaultClassName } from '@wordpress/blocks';
-import { withDispatch } from '@wordpress/data';
-import { compose } from '@wordpress/compose';
+import { useDispatch } from '@wordpress/data';
 
 /**
  * Internal dependencies
@@ -17,10 +16,12 @@ import DownloadableBlockListItem from '../downloadable-block-list-item';
 
 function DownloadableBlocksList( {
 	items,
-	onHover = noop,
 	children,
-	downloadAndInstallBlock,
+	onHover = noop,
+	onSelect,
 } ) {
+	const { installBlockType } = useDispatch( 'core/block-directory' );
+
 	return (
 		/*
 		 * Disable reason: The `list` ARIA role is redundant but
@@ -35,7 +36,9 @@ function DownloadableBlocksList( {
 						className={ getBlockMenuDefaultClassName( item.id ) }
 						icons={ item.icons }
 						onClick={ () => {
-							downloadAndInstallBlock( item );
+							installBlockType( item ).then( () => {
+								onSelect( item );
+							} );
 							onHover( null );
 						} }
 						onFocus={ () => onHover( item ) }
@@ -51,15 +54,4 @@ function DownloadableBlocksList( {
 	);
 }
 
-export default compose(
-	withDispatch( ( dispatch, { onSelect } ) => {
-		const { installBlockType } = dispatch( 'core/block-directory' );
-		return {
-			downloadAndInstallBlock: ( item ) => {
-				installBlockType( item ).then( () => {
-					onSelect( item );
-				} );
-			},
-		};
-	} )
-)( DownloadableBlocksList );
+export default DownloadableBlocksList;
