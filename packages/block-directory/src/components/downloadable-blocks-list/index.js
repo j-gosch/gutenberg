@@ -52,11 +52,13 @@ function DownloadableBlocksList( {
 }
 
 export default compose(
-	withDispatch( ( dispatch ) => {
+	withDispatch( ( dispatch, { onSelect } ) => {
 		const { installBlockType } = dispatch( 'core/block-directory' );
 		return {
 			downloadAndInstallBlock: ( item ) => {
-				installBlockType( item );
+				installBlockType( item ).then( () => {
+					onSelect( item );
+				} );
 			},
 		};
 	} )
