@@ -30,7 +30,7 @@ const BlockActionsMenu = ( {
 	isLast,
 	blockTitle,
 	isEmptyDefaultBlock,
-	blockMobileToolbarRef,
+	blockMobileToolbarWrapperRef,
 } ) => {
 	const pickerRef = useRef();
 	const moversOptions = { keys: [ 'icon', 'actionTitle' ], blockTitle };
@@ -129,8 +129,8 @@ const BlockActionsMenu = ( {
 				disabledButtonIndices={ disabledButtonIndices }
 				hideCancelButton={ Platform !== 'ios' }
 				anchor={
-					blockMobileToolbarRef
-						? findNodeHandle( blockMobileToolbarRef )
+					blockMobileToolbarWrapperRef
+						? findNodeHandle( blockMobileToolbarWrapperRef )
 						: undefined
 				}
 			/>

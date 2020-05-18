@@ -29,7 +29,7 @@ const BlockMobileToolbar = ( {
 	onDelete,
 	isStackedHorizontally,
 	blockWidth,
-	blockMobileToolbarRef,
+	blockMobileToolbarWrapperRef,
 } ) => {
 	const wrapBlockSettings = blockWidth < BREAKPOINTS.wrapSettings;
 	const wrapBlockMover = blockWidth <= BREAKPOINTS.wrapMover;
@@ -58,7 +58,7 @@ const BlockMobileToolbar = ( {
 				wrapBlockSettings={ wrapBlockSettings }
 				isStackedHorizontally={ isStackedHorizontally }
 				onDelete={ onDelete }
-				blockMobileToolbarRef={ blockMobileToolbarRef }
+				blockMobileToolbarWrapperRef={ blockMobileToolbarWrapperRef }
 			/>
 		</View>
 	);

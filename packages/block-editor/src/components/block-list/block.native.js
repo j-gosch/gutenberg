@@ -35,7 +35,7 @@ class BlockListBlock extends Component {
 			blockWidth: 0,
 		};
 
-		this.blockMobileToolbar = createRef();
+		this.blockMobileToolbarWrapper = createRef();
 	}
 
 	onFocus() {
@@ -195,7 +195,7 @@ class BlockListBlock extends Component {
 						) }
 						<View
 							style={ styles.neutralToolbar }
-							ref={ this.blockMobileToolbar }
+							ref={ this.blockMobileToolbarWrapper }
 						>
 							{ isSelected && (
 								<BlockMobileToolbar
@@ -205,8 +205,8 @@ class BlockListBlock extends Component {
 										isStackedHorizontally
 									}
 									blockWidth={ blockWidth }
-									blockMobileToolbarRef={
-										this.blockMobileToolbar.current
+									blockMobileToolbarWrapperRef={
+										this.blockMobileToolbarWrapper.current
 									}
 								/>
 							) }
