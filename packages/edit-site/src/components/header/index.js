@@ -5,7 +5,6 @@ import { useCallback } from '@wordpress/element';
 import {
 	BlockNavigationDropdown,
 	ToolSelector,
-	Inserter,
 	__experimentalPreviewOptions as PreviewOptions,
 } from '@wordpress/block-editor';
 import { useSelect, useDispatch } from '@wordpress/data';
@@ -13,6 +12,9 @@ import {
 	PinnedItems,
 	__experimentalMainDashboardButton as MainDashboardButton,
 } from '@wordpress/interface';
+import { _x } from '@wordpress/i18n';
+import { plus } from '@wordpress/icons';
+import { Button } from '@wordpress/components';
 
 /**
  * Internal dependencies
@@ -25,9 +27,11 @@ import UndoButton from './undo-redo/undo';
 import RedoButton from './undo-redo/redo';
 import FullscreenModeClose from './fullscreen-mode-close';
 
-const inserterToggleProps = { isPrimary: true };
-
-export default function Header( { openEntitiesSavedStates } ) {
+export default function Header( {
+	openEntitiesSavedStates,
+	isInserterOpen,
+	onToggleInserter,
+} ) {
 	const { settings, setSettings } = useEditorContext();
 	const setActiveTemplateId = useCallback(
 		( newTemplateId ) =>
@@ -71,10 +75,16 @@ export default function Header( { openEntitiesSavedStates } ) {
 				<FullscreenModeClose />
 			</MainDashboardButton.Slot>
 			<div className="edit-site-header__toolbar">
-				<Inserter
-					position="bottom right"
-					showInserterHelpPanel
-					toggleProps={ inserterToggleProps }
+				<Button
+					className="edit-post-header-toolbar__inserter-toggle"
+					isPrimary
+					isPressed={ isInserterOpen }
+					onClick={ onToggleInserter }
+					icon={ plus }
+					label={ _x(
+						'Add block',
+						'Generic label for block inserter button'
+					) }
 				/>
 				<ToolSelector />
 				<UndoButton />
